@@ -710,45 +710,33 @@ body {
   width: 100%; height: 100vh; overflow-y: auto;
 }
 
-/* ── TOP BAR ── */
-.topbar {
+/* ── PRIMARY TABS (Metrics / Department / Reports) — page level ──
+   Same .tab-btn treatment as job maintenance (job-detail.css) and
+   customer maintenance: filled pill, uppercase bold label, solid
+   accent fill on the active tab. Sized to content here rather than
+   flex:1, since this row has icons and doesn't need to fill the width. */
+.primary-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.tab-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 20px;
+  flex: 1;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
   background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-default);
-  padding: 0 32px;
-  position: sticky; top: 0; z-index: 50;
-}
-.topbar-inner {
-  max-width: var(--container-data);
-  width: 100%; margin: auto;
-}
-.breadcrumb {
-  display: flex; align-items: center; gap: 6px;
-  padding: 16px 0 12px;
-  color: var(--text-tertiary);
-}
-.breadcrumb a { text-decoration: underline; cursor: pointer; }
-.breadcrumb a:hover { opacity: .8; }
-.breadcrumb .sep { opacity: .55; }
-.breadcrumb .current { color: var(--text-primary); font-weight: var(--font-weight-semibold); }
-
-/* ── PRIMARY TABS (Metrics / Department / Reports) ── */
-.primary-tabs { display: flex; gap: 4px; }
-.primary-tabs .ptab {
-  padding: 10px 16px 12px;
-  font-size: var(--fontsize-body-md);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  cursor: pointer; user-select: none;
-  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
-  transition: color .12s, background .12s;
-}
-.primary-tabs .ptab:hover { color: var(--interactive-hover); background: var(--bg-muted); }
-.primary-tabs .ptab.active {
   color: var(--text-interactive);
-  font-weight: var(--font-weight-semibold);
-  border-bottom-color: var(--interactive-default);
+  font-family: var(--font-family-primary);
+  font-size: var(--fontsize-body-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  cursor: pointer; user-select: none;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.tab-btn:hover { color: var(--interactive-hover); }
+.tab-btn.active {
+  color: var(--color-white);
+  background: var(--interactive-default);
+  border-color: var(--interactive-default);
 }
 
 /* ── PAGE CONTENT ── */
@@ -759,121 +747,268 @@ body {
   padding: 0 32px;
 }
 
-/* ── CATEGORY SUB-TABS ── */
-.subtab-bar {
-  display: flex; gap: 2px;
-  border-bottom: 1px solid var(--border-tertiary);
-  margin-bottom: 20px;
+/* ── SEARCH + EXPLORE ROW ── */
+.search-filter-row {
+  display: flex; align-items: center; gap: 16px;
+  flex-wrap: wrap; margin-bottom: 20px;
 }
-.subtab-bar .stab {
-  padding: 8px 14px 10px;
-  font-size: var(--fontsize-body-sm);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: .02em;
-  color: var(--text-tertiary);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  cursor: pointer; user-select: none;
-  transition: color .12s;
-}
-.subtab-bar .stab:hover { color: var(--interactive-hover); }
-.subtab-bar .stab.active {
-  color: var(--text-interactive);
-  border-bottom-color: var(--interactive-default);
-}
-.subtab-bar .stab .cnt {
-  font-size: var(--fontsize-label);
-  font-weight: var(--font-weight-book);
-  color: var(--text-tertiary);
-  margin-left: 5px;
-}
+.search-filter-row .report-search { flex: 1 1 280px; margin-bottom: 0; }
+.explore-btn { flex-shrink: 0; margin-left: auto; white-space: nowrap; }
 
-/* ── REPORT SWITCHER ROW ── */
-.switch-row {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 20px; flex-wrap: wrap;
-}
-.step-arrows { display: flex; gap: 4px; }
-.step-arrows button {
-  width: 30px; height: 30px;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
-  color: var(--text-secondary);
-  border-radius: var(--border-radius-full);
-  cursor: pointer; font-size: 11px;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color .12s, color .12s, background .12s;
-}
-.step-arrows button:hover {
-  border-color: var(--interactive-default);
-  color: var(--interactive-default);
-  background: var(--interactive-bg-subtle);
-}
-.quick-switch { position: relative; min-width: 260px; }
-.qs-btn {
-  width: 100%;
-  display: flex; align-items: center; gap: 8px;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  border-radius: var(--border-radius-md);
-  padding: 7px 12px;
-  font-family: var(--font-family-primary);
-  font-size: var(--fontsize-body-md);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer; text-align: left;
-  transition: border-color .12s;
-}
-.qs-btn:hover { border-color: var(--border-focus); }
-.quick-switch.open .qs-btn {
-  border-color: var(--border-focus);
-  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
-}
-.qs-btn .chev { margin-left: auto; color: var(--text-tertiary); font-size: 10px; transition: transform .15s; }
-.quick-switch.open .qs-btn .chev { transform: rotate(180deg); }
-.qs-menu {
-  display: none;
+/* ── REPORT SEARCH ── */
+.report-search { position: relative; }
+.report-search .search-container { max-width: none; }
+.search-dropdown {
   position: absolute; top: 100%; left: 0; right: 0;
+  margin: 0; list-style: none;
   background: var(--bg-surface);
   border: 1px solid var(--border-focus);
   border-top: none;
   border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
   box-shadow: 0 10px 24px var(--overlay-panel);
-  z-index: 100; overflow: hidden;
-  max-height: 300px; overflow-y: auto;
+  max-height: 280px; overflow-y: auto; z-index: 120;
+  display: none;
 }
-.quick-switch.open .qs-menu { display: block; }
-.qs-menu .qs-lbl {
+.report-search.open .search-dropdown { display: block; }
+.report-search.open .search-container {
+  border-color: var(--border-focus);
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+}
+.search-dropdown li {
+  padding: 8px 12px; cursor: pointer;
+  font-size: var(--fontsize-body-md);
+  color: var(--text-primary);
+  display: flex; align-items: center; gap: 8px;
+  border-left: 3px solid transparent;
+}
+.search-dropdown li:hover { background: var(--bg-muted); }
+.search-dropdown li.active {
+  background: var(--interactive-bg-subtle);
+  border-left-color: var(--border-focus);
+  font-weight: var(--font-weight-semibold);
+}
+.search-dropdown li .dept {
+  margin-left: auto;
+  font-size: var(--fontsize-body-sm);
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-book);
+}
+.search-dropdown li.empty { color: var(--text-tertiary); cursor: default; }
+.search-dropdown li.empty:hover { background: none; }
+
+/* ── DEPARTMENT FILTER PILLS ── */
+.filter-pills {
+  display: flex; align-items: center; gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.filter-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-full);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--fontsize-body-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer; user-select: none;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.filter-pill:hover { border-color: var(--interactive-default); color: var(--interactive-default); }
+.filter-pill.on {
+  background: var(--interactive-default);
+  border-color: var(--interactive-default);
+  color: var(--color-white);
+}
+.filter-pill.on:hover { background: var(--interactive-hover); border-color: var(--interactive-hover); color: var(--color-white); }
+.filter-pill .cnt {
+  font-size: var(--fontsize-label);
+  font-weight: var(--font-weight-book);
+  opacity: .75;
+}
+.filter-pill i { font-size: 9px; }
+.filter-pills .clear-filters {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: var(--fontsize-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-interactive);
+  padding: 5px 4px; margin-left: 2px;
+}
+.filter-pills .clear-filters:hover { text-decoration: underline; }
+.filter-pills .divider {
+  width: 1px; height: 18px;
+  background: var(--border-tertiary);
+  margin: 0 4px;
+}
+.filter-pills .pills-label {
   font-size: var(--fontsize-label);
   font-weight: var(--font-weight-bold);
   letter-spacing: .08em; text-transform: uppercase;
   color: var(--text-tertiary);
-  padding: 10px 12px 4px;
+  margin-right: 2px;
 }
-.qs-menu .qs-item {
+
+/* ── OPEN REPORT TABS ──
+   Browser-style dismissable tabs: one per report the user has opened via
+   search. The active tab welds onto the report-panel below it (same
+   background, overlapping border) so the two read as one folder unit. */
+.report-tabs {
+  display: flex; align-items: flex-end; gap: 4px;
+  flex-wrap: wrap;
+}
+.report-tab {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 10px 10px 16px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-default);
+  border-bottom: none;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--fontsize-body-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer; user-select: none;
+  transition: background .12s, color .12s;
+}
+.report-tab:hover { color: var(--text-primary); }
+.report-tab.active {
+  background: var(--bg-surface);
+  color: var(--text-interactive);
+  position: relative;
+  margin-bottom: -1px;
+  padding-bottom: 11px;
+  z-index: 2;
+}
+.report-tab .tab-close {
+  width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-tertiary);
+  font-size: 10px;
+  transition: background .12s, color .12s;
+}
+.report-tab .tab-close:hover { background: var(--overlay-panel); color: var(--text-primary); }
+.report-tab.single .tab-close { visibility: hidden; }
+
+.report-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) var(--border-radius-md);
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+.report-panel .card { margin: 0; }
+
+/* ── EXPLORE REPORTS DRAWER ──
+   Same slide-in-from-right pattern as customer-management.css's
+   .modal-overlay/.modal-panel, holding the full catalog grouped by
+   department — the Option A rail, as an on-demand drawer instead of a
+   permanent column. */
+.explore-overlay {
+  position: fixed; inset: 0;
+  background: var(--overlay-modal);
+  z-index: 250;
+  display: flex; align-items: flex-start; justify-content: flex-end;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+}
+.explore-overlay.open { opacity: 1; pointer-events: all; }
+.explore-panel {
+  width: 380px; height: 100vh;
+  background: var(--bg-surface);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, .15);
+  transform: translateX(40px);
+  transition: transform .25s cubic-bezier(.25,.46,.45,.94);
+  display: flex; flex-direction: column;
+}
+.explore-overlay.open .explore-panel { transform: translateX(0); }
+.explore-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.explore-title {
   display: flex; align-items: center; gap: 8px;
-  padding: 8px 12px;
+  font-size: var(--fontsize-body-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+.explore-title i { color: var(--text-interactive); font-size: 15px; }
+.modal-close {
+  width: 32px; height: 32px;
+  border: none; background: none; cursor: pointer;
+  border-radius: var(--border-radius-sm);
+  color: var(--text-tertiary);
+  font-size: 20px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, color .15s;
+}
+.modal-close:hover { background: var(--bg-muted); color: var(--text-primary); }
+.explore-search {
+  margin: 14px 20px;
+  position: relative;
+  display: flex; align-items: center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
+  background: var(--bg-surface);
+  flex-shrink: 0;
+}
+.explore-search:focus-within { border-color: var(--border-focus); }
+.explore-search i { color: var(--text-tertiary); padding: 0 10px; font-size: 12px; }
+.explore-search input {
+  flex: 1; border: none; outline: none; background: none;
+  padding: 8px 10px 8px 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--fontsize-body-md);
+  color: var(--text-primary);
+}
+.explore-list { flex: 1; overflow-y: auto; padding-bottom: 12px; }
+.explore-list .group-label {
+  display: flex; justify-content: space-between;
+  font-size: var(--fontsize-label);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 14px 20px 6px;
+}
+.explore-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 20px;
   font-size: var(--fontsize-body-md);
   color: var(--text-primary);
   cursor: pointer;
   border-left: 3px solid transparent;
   transition: background .1s;
 }
-.qs-menu .qs-item:hover { background: var(--bg-muted); }
-.qs-menu .qs-item.active {
+.explore-item:hover { background: var(--bg-muted); }
+.explore-item.active {
   background: var(--interactive-bg-subtle);
   border-left-color: var(--border-focus);
+  color: var(--text-interactive);
   font-weight: var(--font-weight-semibold);
 }
-.qs-menu .qs-item i { font-size: 10px; color: var(--text-interactive); margin-left: auto; }
-
-.report-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.report-heading h5 { color: var(--text-primary); }
+.explore-item .name { flex: 1; }
+.explore-item .open-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--interactive-default);
+  flex-shrink: 0;
+}
+.explore-empty {
+  padding: 24px 20px;
+  color: var(--text-tertiary);
+  font-size: var(--fontsize-body-md);
+  text-align: center;
+}
 
 /* ── TOOLBAR ── */
 .report-toolbar {
   display: flex; align-items: flex-end; gap: 16px;
   flex-wrap: wrap; margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 .field label {
   display: block;
@@ -911,7 +1046,7 @@ body {
   border-bottom: 1px solid var(--border-subtle);
 }
 .search-container {
-  position: relative; flex: 1; max-width: 340px;
+  position: relative; flex: 1;
   display: flex; align-items: center;
   border: 1px solid var(--border-subtle);
   border-radius: var(--border-radius-md);
@@ -1008,166 +1143,235 @@ body {
 
 <div class="main">
 
-  <!-- ── TOP BAR ── -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="breadcrumb type-body-sm">
-        <a><i class="fa-regular fa-chart-mixed"></i> Reports</a>
-        <span class="sep">›</span>
-        <a id="crumb-cat">Shipping &amp; Logistics</a>
-        <span class="sep">›</span>
-        <span class="current" id="crumb-report">Bindery To Shipping</span>
-      </div>
-      <div class="primary-tabs">
-        <div class="ptab">Metrics Dashboard</div>
-        <div class="ptab">Department Dashboard</div>
-        <div class="ptab active">Reports</div>
-      </div>
-    </div>
-  </div>
-
   <!-- ── PAGE CONTENT ── -->
   <div class="page-content">
 
-    <!-- Category sub-tabs -->
-    <div class="subtab-bar" id="subtabs"></div>
-
-    <!-- Report switcher -->
-    <div class="switch-row">
-      <div class="step-arrows">
-        <button id="prev-btn" title="Previous report"><i class="fa-regular fa-chevron-left"></i></button>
-        <button id="next-btn" title="Next report"><i class="fa-regular fa-chevron-right"></i></button>
-      </div>
-      <div class="quick-switch" id="quick-switch">
-        <button class="qs-btn" id="qs-btn">
-          <i class="fa-regular fa-file-chart-column" style="color:var(--text-tertiary);font-size:12px"></i>
-          <span id="qs-label">Bindery To Shipping</span>
-          <span class="chev"><i class="fa-regular fa-chevron-down"></i></span>
-        </button>
-        <div class="qs-menu" id="qs-menu"></div>
-      </div>
-      <div class="toolbar-right">
-        <button class="btn-secondary"><i class="fa-regular fa-star"></i> Pin</button>
-        <button class="btn-secondary"><i class="fa-regular fa-arrow-down-to-line"></i> Export</button>
-      </div>
+    <!-- Page tabs — same .tab-btn treatment as job & customer maintenance -->
+    <div class="primary-tabs">
+      <button class="tab-btn">Metrics Dashboard</button>
+      <button class="tab-btn">Department Dashboard</button>
+      <button class="tab-btn active">Reports</button>
     </div>
 
-    <div class="report-heading">
-      <h5 id="report-title">Bindery To Shipping</h5>
-      <span class="pill" id="report-cat">Shipping &amp; Logistics</span>
-    </div>
+    <!-- Department filter pills -->
+    <div class="filter-pills" id="dept-pills"></div>
 
-    <!-- Run parameters -->
-    <div class="report-toolbar">
-      <div class="field">
-        <label for="start">Start Date</label>
-        <input id="start" value="08/11/2026" />
-      </div>
-      <div class="field">
-        <label for="end">End Date</label>
-        <input id="end" value="08/11/2026" />
-      </div>
-      <button class="submit-btn" onclick="showToast()">Run Report</button>
-    </div>
-
-    <!-- Results -->
-    <div class="card">
-      <div class="card-toolbar">
+    <!-- Search + explore row -->
+    <div class="search-filter-row">
+      <!-- Report search — scoped to whichever departments are active in the pills above -->
+      <div class="report-search" id="report-search">
         <div class="search-container">
           <i class="fa-regular fa-magnifying-glass"></i>
-          <input type="text" id="table-search" class="search-input" placeholder="Search results..." autocomplete="off" />
+          <input type="text" id="report-search-input" class="search-input"
+                 placeholder="Search reports..." autocomplete="off" />
         </div>
-        <span class="row-count type-body-sm" id="row-count"></span>
+        <ul class="search-dropdown" id="report-search-menu"></ul>
       </div>
-      <div class="table-scroll"><table class="report-table" id="report-table"></table></div>
-      <div class="list-footer type-body-sm">
-        <span>Run 08/11/2026 – 08/11/2026</span>
-        <span id="footer-count"></span>
+
+      <button class="btn-secondary explore-btn" id="explore-btn">
+        <i class="fa-regular fa-list-tree"></i> Explore Reports
+      </button>
+    </div>
+
+    <!-- Open report tabs — one per report opened from search, dismissable -->
+    <div class="report-tabs" id="report-tabs"></div>
+
+    <div class="report-panel">
+      <!-- Run parameters -->
+      <div class="report-toolbar">
+        <div class="field">
+          <label for="start">Start Date</label>
+          <input id="start" value="08/11/2026" />
+        </div>
+        <div class="field">
+          <label for="end">End Date</label>
+          <input id="end" value="08/11/2026" />
+        </div>
+        <button class="submit-btn" onclick="showToast()">Run Report</button>
+      </div>
+
+      <!-- Results -->
+      <div class="card">
+        <div class="card-toolbar">
+          <div class="search-container">
+            <i class="fa-regular fa-magnifying-glass"></i>
+            <input type="text" id="table-search" class="search-input" placeholder="Search results..." autocomplete="off" />
+          </div>
+          <span class="row-count type-body-sm" id="row-count"></span>
+        </div>
+        <div class="table-scroll"><table class="report-table" id="report-table"></table></div>
+        <div class="list-footer type-body-sm">
+          <span>Run 08/11/2026 – 08/11/2026</span>
+          <span id="footer-count"></span>
+        </div>
       </div>
     </div>
 
   </div><!-- /page-content -->
 </div><!-- /main -->
 
+<!-- ── EXPLORE REPORTS DRAWER — full catalog grouped by department (Option A rail, as a drawer) ── -->
+<div class="explore-overlay" id="explore-overlay">
+  <div class="explore-panel">
+    <div class="explore-header">
+      <div class="explore-title"><i class="fa-regular fa-list-tree"></i> All Reports</div>
+      <button class="modal-close" id="explore-close">&times;</button>
+    </div>
+    <div class="explore-search">
+      <i class="fa-regular fa-magnifying-glass"></i>
+      <input type="text" id="explore-search-input" placeholder="Search all reports…" autocomplete="off" />
+    </div>
+    <div class="explore-list" id="explore-list"></div>
+  </div>
+</div>
+
 <script>
   window.toggleSidebar = function () {
     document.getElementById('sidebar').classList.toggle('collapsed');
   };
 
-  /* ── Report catalog, grouped by category ── */
-  const CATALOG = [
-    { cat: 'Production', reports: ['Prepress To Press', 'Press To Bindery', 'Finishing Queue'] },
-    { cat: 'Shipping & Logistics', reports: ['Bindery To Shipping', 'Shipping To Delivery', 'Freight Consolidation'] },
-    { cat: 'Finance', reports: ['Open Invoices', 'Job Cost Variance'] },
-    { cat: 'Quality', reports: ['Quality Holds', 'Reprint Log'] },
+  document.querySelectorAll('.primary-tabs .tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.primary-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  /* ── Report catalog — every report belongs to a department ── */
+  const DEPARTMENTS = ['Creative Services', 'Pre-Press', 'Press', 'Bindery', 'Shipping', 'Woodshop'];
+
+  const REPORTS = [
+    { name: 'Proof Out Aging',        dept: 'Creative Services' },
+    { name: 'Art Request Queue',      dept: 'Creative Services' },
+    { name: 'Prepress To Press',      dept: 'Pre-Press' },
+    { name: 'Plate Queue',            dept: 'Pre-Press' },
+    { name: 'Press To Bindery',       dept: 'Press' },
+    { name: 'Press Makeready',        dept: 'Press' },
+    { name: 'Bindery To Shipping',    dept: 'Bindery' },
+    { name: 'Finishing Queue',        dept: 'Bindery' },
+    { name: 'Bindery Quality Holds',  dept: 'Bindery' },
+    { name: 'Shipping To Delivery',   dept: 'Shipping' },
+    { name: 'Freight Consolidation',  dept: 'Shipping' },
+    { name: 'Woodshop Check-Out',     dept: 'Woodshop' },
   ];
 
-  let activeCat = 'Shipping & Logistics';
+  /* Active department filters — empty Set means "all departments".
+     These only scope what search can find; they never touch which
+     report tabs are open or which one is active. */
+  const activeDepts = new Set();
+
+  /* Open report tabs, in the order they were opened. The report showing
+     in the panel is always the last-focused entry in this list. */
+  const openTabs = ['Bindery To Shipping'];
   let activeReport = 'Bindery To Shipping';
+  let query = '';
 
-  const catReports = () => CATALOG.find(c => c.cat === activeCat).reports;
+  const reportByName = n => REPORTS.find(r => r.name === n);
+  const deptCount = d => REPORTS.filter(r => r.dept === d).length;
 
-  function renderSubtabs() {
-    document.getElementById('subtabs').innerHTML = CATALOG.map(c => `
-      <div class="stab ${c.cat === activeCat ? 'active' : ''}" data-cat="${c.cat}">
-        ${c.cat}<span class="cnt">${c.reports.length}</span>
+  function visibleReports() {
+    return REPORTS.filter(r => !activeDepts.size || activeDepts.has(r.dept));
+  }
+
+  /* Bring a report into view — opens a new tab for it if needed, or just
+     focuses the existing one. */
+  function openReport(name) {
+    if (!openTabs.includes(name)) openTabs.push(name);
+    activeReport = name;
+    renderAll();
+  }
+
+  /* ── Department filter pills ── */
+  function renderPills() {
+    const el = document.getElementById('dept-pills');
+    el.innerHTML =
+      `<span class="pills-label">Department</span>` +
+      `<button class="filter-pill ${activeDepts.size ? '' : 'on'}" data-all="1">All</button>` +
+      `<span class="divider"></span>` +
+      DEPARTMENTS.map(d => `
+        <button class="filter-pill ${activeDepts.has(d) ? 'on' : ''}" data-dept="${d}">
+          ${activeDepts.has(d) ? '<i class="fa-regular fa-check"></i>' : ''}${d}
+          <span class="cnt">${deptCount(d)}</span>
+        </button>`).join('') +
+      (activeDepts.size ? `<button class="clear-filters" id="clear-filters">Clear filters</button>` : '');
+
+    el.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.all) activeDepts.clear();
+        else {
+          const d = btn.dataset.dept;
+          activeDepts.has(d) ? activeDepts.delete(d) : activeDepts.add(d);
+        }
+        renderAll();
+      });
+    });
+    const clear = document.getElementById('clear-filters');
+    if (clear) clear.addEventListener('click', () => { activeDepts.clear(); renderAll(); });
+  }
+
+  /* ── Report search — scoped to whichever departments are active in the
+     pills above it, so search never surfaces a report the pills are hiding.
+     Picking a result opens (or focuses) its tab. ── */
+  const searchWrap  = document.getElementById('report-search');
+  const searchInput = document.getElementById('report-search-input');
+
+  function renderSearchMenu() {
+    const q = query.toLowerCase().trim();
+    const hits = visibleReports().filter(r =>
+      !q || r.name.toLowerCase().includes(q) || r.dept.toLowerCase().includes(q));
+    document.getElementById('report-search-menu').innerHTML = hits.length
+      ? hits.map(r => `
+          <li class="${r.name === activeReport ? 'active' : ''}" data-report="${r.name}">
+            ${r.name}<span class="dept">${r.dept}</span>
+          </li>`).join('')
+      : `<li class="empty">No reports match “${query}” in the selected department${activeDepts.size === 1 ? '' : 's'}</li>`;
+    document.querySelectorAll('#report-search-menu li[data-report]').forEach(li => {
+      li.addEventListener('click', () => {
+        query = ''; searchInput.value = '';
+        searchWrap.classList.remove('open');
+        openReport(li.dataset.report);
+      });
+    });
+  }
+
+  searchInput.addEventListener('input', () => {
+    query = searchInput.value;
+    searchWrap.classList.add('open');
+    renderSearchMenu();
+  });
+  searchInput.addEventListener('focus', () => {
+    searchWrap.classList.add('open');
+    renderSearchMenu();
+  });
+  searchWrap.addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', () => searchWrap.classList.remove('open'));
+
+  /* ── Open report tabs ── */
+  function renderTabs() {
+    document.getElementById('report-tabs').innerHTML = openTabs.map(name => `
+      <div class="report-tab ${name === activeReport ? 'active' : ''} ${openTabs.length === 1 ? 'single' : ''}" data-report="${name}">
+        <span>${name}</span>
+        <span class="tab-close" title="Close ${name}"><i class="fa-regular fa-xmark"></i></span>
       </div>`).join('');
-    document.querySelectorAll('.stab').forEach(el => {
-      el.addEventListener('click', () => {
-        activeCat = el.dataset.cat;
-        activeReport = catReports()[0];
+
+    document.querySelectorAll('.report-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        activeReport = tab.dataset.report;
+        renderAll();
+      });
+      tab.querySelector('.tab-close').addEventListener('click', e => {
+        e.stopPropagation();
+        if (openTabs.length === 1) return; // always leave one report open
+        const name = tab.dataset.report;
+        const i = openTabs.indexOf(name);
+        openTabs.splice(i, 1);
+        if (activeReport === name) activeReport = openTabs[Math.max(0, i - 1)];
         renderAll();
       });
     });
-  }
 
-  function renderSwitcher() {
-    document.getElementById('qs-label').textContent = activeReport;
-    document.getElementById('qs-menu').innerHTML = CATALOG.map(c => `
-      <div class="qs-lbl">${c.cat}</div>
-      ${c.reports.map(r => `
-        <div class="qs-item ${r === activeReport ? 'active' : ''}" data-cat="${c.cat}" data-report="${r}">
-          ${r}${r === activeReport ? '<i class="fa-regular fa-check"></i>' : ''}
-        </div>`).join('')}
-    `).join('');
-    document.querySelectorAll('.qs-item').forEach(el => {
-      el.addEventListener('click', () => {
-        activeCat = el.dataset.cat;
-        activeReport = el.dataset.report;
-        document.getElementById('quick-switch').classList.remove('open');
-        renderAll();
-      });
-    });
-  }
-
-  function renderHeader() {
-    document.getElementById('report-title').textContent = activeReport;
-    document.getElementById('report-cat').textContent = activeCat;
-    document.getElementById('crumb-cat').textContent = activeCat;
-    document.getElementById('crumb-report').textContent = activeReport;
     document.title = 'Reports — ' + activeReport;
-    const list = catReports();
-    const i = list.indexOf(activeReport);
-    document.getElementById('prev-btn').disabled = false;
-    document.getElementById('next-btn').disabled = false;
-    document.getElementById('prev-btn').title = 'Previous: ' + list[(i - 1 + list.length) % list.length];
-    document.getElementById('next-btn').title = 'Next: ' + list[(i + 1) % list.length];
   }
-
-  document.getElementById('prev-btn').addEventListener('click', () => {
-    const list = catReports(); const i = list.indexOf(activeReport);
-    activeReport = list[(i - 1 + list.length) % list.length]; renderAll();
-  });
-  document.getElementById('next-btn').addEventListener('click', () => {
-    const list = catReports(); const i = list.indexOf(activeReport);
-    activeReport = list[(i + 1) % list.length]; renderAll();
-  });
-
-  const qs = document.getElementById('quick-switch');
-  document.getElementById('qs-btn').addEventListener('click', e => {
-    e.stopPropagation(); qs.classList.toggle('open');
-  });
-  document.addEventListener('click', () => qs.classList.remove('open'));
 
   /* ── Sample result set ── */
   const HEAD = ['Production Type','Job Num','Sum','Detail Count','Customer Num','Customer','Job Description','Old Location','New Location','Date Moved'];
@@ -1205,7 +1409,58 @@ body {
   }
   document.getElementById('table-search').addEventListener('input', renderTable);
 
-  function renderAll() { renderSubtabs(); renderSwitcher(); renderHeader(); renderTable(); }
+  /* ── Explore Reports drawer — the full catalog, grouped by department,
+     unaffected by the pill filters above (it's the escape hatch to browse
+     everything). Opening a report from here behaves just like search. ── */
+  const exploreOverlay = document.getElementById('explore-overlay');
+  const exploreInput = document.getElementById('explore-search-input');
+  let exploreQuery = '';
+
+  function renderExploreList() {
+    const q = exploreQuery.toLowerCase().trim();
+    const groups = DEPARTMENTS
+      .map(d => ({
+        dept: d,
+        reports: REPORTS.filter(r => r.dept === d && (!q || r.name.toLowerCase().includes(q))),
+      }))
+      .filter(g => g.reports.length);
+
+    document.getElementById('explore-list').innerHTML = groups.length
+      ? groups.map(g => `
+          <div class="group-label"><span>${g.dept}</span><span>${g.reports.length}</span></div>
+          ${g.reports.map(r => `
+            <div class="explore-item ${r.name === activeReport ? 'active' : ''}" data-report="${r.name}">
+              <span class="name">${r.name}</span>
+              ${openTabs.includes(r.name) ? '<span class="open-dot" title="Currently open"></span>' : ''}
+            </div>`).join('')}
+        `).join('')
+      : `<div class="explore-empty">No reports match “${exploreQuery}”</div>`;
+
+    document.querySelectorAll('.explore-item').forEach(el => {
+      el.addEventListener('click', () => {
+        openReport(el.dataset.report);
+        closeExplore();
+      });
+    });
+  }
+
+  function openExplore() {
+    exploreOverlay.classList.add('open');
+    exploreQuery = ''; exploreInput.value = '';
+    renderExploreList();
+    exploreInput.focus();
+  }
+  function closeExplore() { exploreOverlay.classList.remove('open'); }
+
+  document.getElementById('explore-btn').addEventListener('click', openExplore);
+  document.getElementById('explore-close').addEventListener('click', closeExplore);
+  exploreOverlay.addEventListener('click', e => { if (e.target === exploreOverlay) closeExplore(); });
+  exploreInput.addEventListener('input', () => { exploreQuery = exploreInput.value; renderExploreList(); });
+
+  function renderAll() {
+    renderPills(); renderSearchMenu(); renderTabs(); renderTable();
+    if (exploreOverlay.classList.contains('open')) renderExploreList();
+  }
   function showToast() { renderTable(); }
 
   renderAll();
